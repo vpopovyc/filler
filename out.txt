@@ -1,0 +1,5 @@
+$$$ exec p2 : [players/travis.filler]
+token: X
+Plateau 24 40:
+x: 24 y: 40
+
