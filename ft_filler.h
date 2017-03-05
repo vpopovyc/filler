@@ -16,16 +16,19 @@
 # include "libft/includes/libft.h"
 typedef struct	s_filler
 {
-	int		map_shapes[2];
-	char	token;
-	char	*map;
+	int		map_shapes[2]; /* [0] = y [1] = x */
+	char	token_c;
+	char	**map;
+    char    **token;
 }				t_filler;
 void		ft_get_s_filler(t_filler *travis);
-void		ft_get_p_number(t_filler *travis, int number, int fd);
-void		ft_get_x_y(t_filler *travis, int x, int y, int fd);
+void		ft_get_p_number(t_filler *travis);
+void		ft_get_x_y(t_filler *travis);
+void		ft_get_map(t_filler *travis);
+void        ft_get_token(t_filler *travis);
 #endif
-/* you need to parse map
+/* you need to parse map - done!
  * and
- * parse token
+ * parse token - done!
  * then write func that could check, if filler can write token in specified x, y
  * algo for srategie */

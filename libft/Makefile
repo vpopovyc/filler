@@ -6,7 +6,7 @@
 #    By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/24 15:22:42 by vpopovyc          #+#    #+#              #
-#    Updated: 2017/02/10 13:23:38 by vpopovyc         ###   ########.fr        #
+#    Updated: 2017/03/05 23:26:51 by vpopovyc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,19 +40,23 @@ OBJ = $(SRC:.c=.o)
 
 CFLAGS = -c -Wall -Wextra -Werror
 
-all: $(NAME)
+all:  $(NAME)
 
 $(NAME): $(OBJ)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+	@echo "\x1b[32mObjects created\x1b[0m"
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
+	@echo  "\x1b[32mLibft compiled\x1b[0m"
 
 %.o: %.c
-	gcc -I $(INC) $(CFLAGS) -o $@ $<
+	@gcc -I $(INC) $(CFLAGS) -o $@ $<
 
 clean:
-	rm -f $(OBJ)
+	@echo "\033[01;31mObjects deleted\x1b[0m"
+	@rm -f $(OBJ)
 
 fclean: clean
-	rm -f $(NAME)
+	@echo "\033[01;31mLibtf deleted\x1b[0m"
+	@rm -f $(NAME)
 
 re: fclean all
