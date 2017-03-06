@@ -6,13 +6,13 @@
 #    By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/02 15:12:00 by vpopovyc          #+#    #+#              #
-#    Updated: 2017/03/05 23:34:22 by vpopovyc         ###   ########.fr        #
+#    Updated: 2017/03/06 19:43:30 by vpopovyc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = players/travis.filler
 
-SRC = main.c ft_s_filler.c
+SRC = main.c ft_s_filler.c ft_get_pos.c ft_hews_token.c
 
 INC = -I ft_filler.h
 
