@@ -1,4 +1,6 @@
-seed = 6002
+seed = 3066
+O: error on input
+players/travis.filler: Segfault at 13
 players/abanlin.filler won
 Score:
-1AGAINST135
+13AGAINST142

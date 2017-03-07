@@ -6,56 +6,11 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 20:32:47 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/06 19:43:46 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/07 20:43:13 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_filler.h"
-
-void	ft_get_p_number(t_filler *travis, int fd)
-{
-    char    *line;
-    
-    get_next_line(0, &line);
-    travis->token_c = ft_atoi(line + 10) == 1 ? 'O': 'X';
-	ft_putendl_fd(&travis->token_c, fd);
-	free(line);
-}
-
-void	ft_get_x_y(t_filler *travis, int fd)
-{
-    char    *line;
-
-    get_next_line(0, &line);
-    travis->map_shapes[0] = ft_atoi(line + 7);
-    travis->map_shapes[1] = ft_atoi(line + 10);
-	ft_putnbr_fd(travis->map_shapes[0], fd);
-	ft_putnbr_fd(travis->map_shapes[1], fd);
-	ft_putstr_fd("\n", fd);
-    free(line);
-}
-
-void	ft_get_map(t_filler *travis, int fd)
-{
-    short	mem_all;
-    short	i;
-    char	*line;
-    
-    i = 0;
-    mem_all = travis->map_shapes[0];
-    travis->map = (char**)malloc(sizeof(char*) * mem_all + 1);
-    *(travis->map + mem_all) = NULL;
-    get_next_line(0, &line);
-    free(line);
-    while (i != mem_all)
-    {
-        get_next_line(0, &line);
-        *(travis->map + i) = ft_strsub(line, 4, travis->map_shapes[1]);
-		ft_putendl_fd(*(travis->map + i), fd);
-        ++i;
-        free(line);
-    }
-}
 
 void    ft_get_token(t_filler *travis, int fd)
 {
@@ -83,10 +38,47 @@ void    ft_get_token(t_filler *travis, int fd)
 	ft_hews(travis, fd);
 }
 
-void	ft_get_s_filler(t_filler *travis, int fd)
+void	ft_get_map(t_filler *travis, int fd)
 {
-    ft_get_p_number(travis, fd);
-    ft_get_x_y(travis, fd);
-    ft_get_map(travis, fd);
+    short	mem_all;
+    short	i;
+    char	*line;
+    
+    i = 0;
+    mem_all = travis->map_shapes[0];
+    travis->map = (char**)malloc(sizeof(char*) * mem_all + 1);
+    *(travis->map + mem_all) = NULL;
+    get_next_line(0, &line);
+    free(line);
+    while (i != mem_all)
+    {
+        get_next_line(0, &line);
+        *(travis->map + i) = ft_strsub(line, 4, travis->map_shapes[1]);
+		ft_putendl_fd(*(travis->map + i), fd);
+        ++i;
+        free(line);
+    }
     ft_get_token(travis, fd);
+}
+
+void	ft_get_x_y(t_filler *travis, int fd)
+{
+    char    *line;
+
+    get_next_line(0, &line);
+    travis->map_shapes[0] = ft_atoi(line + 7);
+    travis->map_shapes[1] = ft_atoi(line + 10);
+	ft_putnbr_fd(travis->map_shapes[0], fd);
+	ft_putnbr_fd(travis->map_shapes[1], fd);
+	ft_putstr_fd("\n", fd);
+    free(line);
+	ft_get_map(travis, fd);
+}
+
+void	ft_get_p_number(t_filler *travis, int fd, char *line)
+{
+	travis->token_c = ft_atoi(line + 10) == 1 ? 'O': 'X';
+	ft_putendl_fd(&travis->token_c, fd);
+	free(line);
+	ft_get_x_y(travis, fd);
 }

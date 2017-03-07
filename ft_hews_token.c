@@ -6,17 +6,18 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:42:56 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/06 21:13:31 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/07 20:37:55 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_filler.h"
 
-void	ft_realloc_token(t_filler *travis/*, int fd*/, short i, short t_i) /* init i = -1 */
+void	ft_realloc_token(t_filler *travis, int fd, short i, short t_i) /* init i = -1 */
 {
 	char	*tmp;
 	char	**new_token;
 
+	ft_putendl_fd("ft_realloc_token", fd);
 	tmp = *(travis->token);
 	while (*tmp != '\0' && ++i < travis->tok_shapes[0])
 		tmp = *(travis->token + i);
@@ -35,12 +36,13 @@ void	ft_realloc_token(t_filler *travis/*, int fd*/, short i, short t_i) /* init 
 	travis->tok_shapes[1] = ft_strlen(*(travis->token + i - 1));
 }
 
-void	ft_hews(t_filler *travis/*, int fd*/)
+void	ft_hews(t_filler *travis, int fd)
 {
 	short	y;
 	short	x;
 	short	empty;
 
+	ft_putendl_fd("ft_hews", fd);
 	y = -1;
 	x = -1;
 	empty = 0;
@@ -64,5 +66,5 @@ void	ft_hews(t_filler *travis/*, int fd*/)
 			}
 		}
 	}
-	ft_realloc_token(travis/*, fd*/, -1, 0);
+	ft_realloc_token(travis, fd, -1, 0);
 }
