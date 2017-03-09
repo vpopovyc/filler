@@ -1,6 +1,2 @@
-seed = 3066
-O: error on input
-players/travis.filler: Segfault at 13
-players/abanlin.filler won
-Score:
-13AGAINST142
+seed = 2729
+X: timedout

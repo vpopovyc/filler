@@ -6,7 +6,7 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:09:07 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/07 21:41:31 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/09 18:39:08 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		main(void)
 			ft_get_p_number(&travis, fd, line);
 		if (ft_strnstr(line, "Pl", 2))
 			ft_get_updated_map_and_token(&travis, fd);
-		ft_flags(&travis, fd);
+		if (ft_flags(&travis, fd))
+			return (ft_printf("0 0\n"));
 	}
 }

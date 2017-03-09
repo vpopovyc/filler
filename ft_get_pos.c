@@ -6,7 +6,7 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:07:01 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/07 21:42:04 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/09 21:47:18 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	ft_flag_usage(t_filler *travis, short *x, short *y)
 }
 int		ft_try_to_fit(t_filler *travis, short x, short y, int fd)
 {
+	ft_fprintf("ft_try_to_fit\n", fd);
 	short	t_x;
 	short	x2 = 0;
 	short	y2 = 0;
@@ -28,40 +29,20 @@ int		ft_try_to_fit(t_filler *travis, short x, short y, int fd)
 	short	check = 0;
 	short	ok = 0;
 
-	ft_putstr_fd("cord before -> x: ", fd);
-	ft_putnbr_fd(x, fd);
-	ft_putstr_fd(" y: ", fd);
-	ft_putnbr_fd(y, fd);
+	ft_fprintf("y: %i, x: %i before flags\n", fd, y, x);
 	ft_flag_usage(travis, &x, &y);
-	ft_putstr_fd("cord after  -> x: ", fd);
-	ft_putnbr_fd(x, fd);
-	ft_putstr_fd(" y: ", fd);
-	ft_putnbr_fd(y, fd);
-	ft_putstr_fd("\n", fd);
+	ft_fprintf("y: %i, x: %i after flags\n", fd, y, x);
 	t_x = x;
 	map = travis->map;
 	tok = travis->token;
-	while (map[y] && tok[y2])
+	while (map[y] && tok[y2] && y >= 0)
 	{
 		x2 = 0;
 		x = t_x;
-		ft_putstr_fd("tok_y: ", fd);
-		ft_putnbr_fd(y2, fd);
-		ft_putstr_fd("\nmap_y: ", fd);
-		ft_putnbr_fd(y, fd);
-		ft_putstr_fd("\n", fd);
+		ft_fprintf("map_y: %i\ntok_y: %i\nmap_x: %i\n", fd, y, y2, x);
 		while (map[y][x] && tok[y2][x2])
 		{
-			ft_putstr_fd("tok_x:  ", fd);
-			ft_putnbr_fd(x2, fd);
-			ft_putstr_fd(" map_x: ", fd);
-			ft_putnbr_fd(x, fd);
-			ft_putstr_fd("\n", fd);
-			ft_putstr_fd("token char: ", fd);
-			ft_putchar_fd(tok[y2][x2], fd);
-			ft_putstr_fd(" map char: ", fd);
-			ft_putchar_fd(map[y][x], fd);
-			ft_putstr_fd("\n", fd);
+			ft_fprintf("map_x: %i - map_char: %c\ntok_x: %i - tok_char: %c\n", fd, x, map[y][x], x2, tok[y2][x2]);
 			if (tok[y2][x2] == '*')
 			{
 				if (map[y][x] == travis->token_c || map[y][x] == travis->token_c + 32)
@@ -77,17 +58,16 @@ int		ft_try_to_fit(t_filler *travis, short x, short y, int fd)
 		++y2;
 		++y;
 	}
-	ft_putstr_fd("check: " , fd);
-	ft_putnbr_fd(check, fd);
-	ft_putstr_fd("\n", fd);
-	if (ok == 1)
+	ft_fprintf("check: %i\n", fd, check);
+	if (ok == 1 && check == travis->tok_shapes[2] - 1)
 		return (1);
 	else
 		return (0);
 }
 
-short	ft_get_pos(t_filler *travis, int fd)
+short	ft_get_pos(t_filler *travis, short y_step, short x_step, int fd)
 {
+	ft_fprintf("ft_get_pos\n", fd);
 	char	**map;
 	short 	x;
 	short	y;
@@ -95,59 +75,54 @@ short	ft_get_pos(t_filler *travis, int fd)
 	short 	t_y;
 
 	map = travis->map;
-	x = 0;
-	y = 0;
-	while (map[y])
+	ft_starting_point(travis, &y, &x, travis->quadrant);
+	ft_fprintf("y: %i, x: %i quadrant: %hhd\n", fd, y, x, travis->quadrant);
+	ft_step(&y_step, &x_step, travis->quadrant);
+	while (map[y] && y >= 0)
 	{
-		x = 0;
+		ft_x_point(travis, travis->quadrant, &x);
 		while (map[y][x])
 		{
-			if (map[y][x] == travis->token_c || map[y][x] == travis->token_c + 32)
+			ft_fprintf("y: %i, x: %i quadrant: %hhd\n", fd, y, x, travis->quadrant);
+			if (map[y][x] == travis->token_c || map[y][x] == travis->token_c + 32) /* here */
 			{
 				if (ft_try_to_fit(travis, x, y, fd))
 				{
-					ft_putstr_fd("x in while: ", fd);
-					ft_putnbr_fd(x, fd);
-					ft_putstr_fd("\ny in while: ", fd);
-					ft_putnbr_fd(y, fd);
-					ft_putstr_fd("\n", fd);
+					ft_fprintf("y: %i, x: %i in while\n", fd, y, x);
 					t_x = x;
 					t_y = y;
 					ft_flag_usage(travis, &t_x, &t_y);
-					ft_putstr_fd("t_x in while: ", fd);
-					ft_putnbr_fd(t_x, fd);
-					ft_putstr_fd("\nt_y in while: ", fd);
-					ft_putnbr_fd(t_y, fd);
-					ft_putstr_fd("\n", fd);
+					ft_fprintf("y: %i, x: %i output\n", fd, t_y, t_x);
 					ft_printf("%d %d\n", t_y, t_x);
 					return (1);
 				}
-				ft_putstr_fd("Trying to fit again\n\n", fd);
+				ft_fprintf("Trying to fit again\n\n", fd);
 			}
-			++x;
+			x += x_step;
 		}
-		++y;
+		y += y_step;
 	}
 	ft_putstr_fd("Cant fit\n", fd);
 	return (0);
 }
 
-void	ft_flags(t_filler *travis, int fd)
+short	ft_flags(t_filler *travis, int fd)
 {
+	ft_fprintf("ft_flags\n", fd);
 	travis->x_flag = 0;
 	travis->y_flag = 0;
-	if (ft_get_pos(travis, fd))
-		return ;
+	if (ft_get_pos(travis, 0, 0, fd))
+		return (0);
 	travis->x_flag = 1;
-	if (ft_get_pos(travis, fd))
-		return ;
+	if (ft_get_pos(travis, 0, 0, fd))
+		return (0);
 	travis->x_flag = 0;
 	travis->y_flag = 1;
-	if (ft_get_pos(travis, fd))
-		return ;
+	if (ft_get_pos(travis, 0, 0, fd))
+		return (0);
 	travis->x_flag = 1;
-	if (ft_get_pos(travis, fd))
-		return ;
-	ft_putstr_fd("pizda blya\n", fd);
+	if (ft_get_pos(travis, 0, 0, fd))
+		return (0);
+	ft_fprintf("pizda blya\n", fd);
+	return (1);
 }
-
