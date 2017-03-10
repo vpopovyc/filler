@@ -6,7 +6,7 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:10:15 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/09 21:14:18 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/10 16:42:07 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,10 @@ void    ft_realloc_token(t_filler *travis, int fd, short i, short t_i);
 /* ft_get_updated_map.c */
 void	ft_get_updated_map_and_token(t_filler *travis, int fd);
 /* ft_quadrant.c */
+int     ft_check_midle(t_filler *travis, int fd);
+void    ft_get_flag(t_filler *travis, char flag);
 char	ft_quadrant(t_filler *travis, char **map, short y, short x);
 void    ft_step(short *y, short *x, char quadrant);
 void    ft_starting_point(t_filler *travis, short *y, short *x, char quadrant);
 void	ft_x_point(t_filler *travis, char quadrant, short *x);
 #endif
-/* you need to parse map - done!
- * and
- * parse token - done!
- * then write func that could check, if filler can write token in specified x, y -almost done!
- * fix -x and -y
- * algo for srategie */

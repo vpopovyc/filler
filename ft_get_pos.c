@@ -6,7 +6,7 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:07:01 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/09 21:47:18 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/10 16:42:16 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,15 @@ short	ft_get_pos(t_filler *travis, short y_step, short x_step, int fd)
 	ft_starting_point(travis, &y, &x, travis->quadrant);
 	ft_fprintf("y: %i, x: %i quadrant: %hhd\n", fd, y, x, travis->quadrant);
 	ft_step(&y_step, &x_step, travis->quadrant);
+	if (ft_check_midle(travis, fd))
+		return (1);
 	while (map[y] && y >= 0)
 	{
 		ft_x_point(travis, travis->quadrant, &x);
 		while (map[y][x])
 		{
 			ft_fprintf("y: %i, x: %i quadrant: %hhd\n", fd, y, x, travis->quadrant);
+			ft_fprintf("x_flag: %i y_flag: %i\n", fd, travis->x_flag, travis->y_flag);
 			if (map[y][x] == travis->token_c || map[y][x] == travis->token_c + 32) /* here */
 			{
 				if (ft_try_to_fit(travis, x, y, fd))
@@ -109,18 +112,17 @@ short	ft_get_pos(t_filler *travis, short y_step, short x_step, int fd)
 short	ft_flags(t_filler *travis, int fd)
 {
 	ft_fprintf("ft_flags\n", fd);
-	travis->x_flag = 0;
-	travis->y_flag = 0;
+	ft_get_flag(travis, 1);
 	if (ft_get_pos(travis, 0, 0, fd))
 		return (0);
-	travis->x_flag = 1;
+	travis->x_flag =  travis->x_flag == 1 ? 0 : 1;
 	if (ft_get_pos(travis, 0, 0, fd))
 		return (0);
-	travis->x_flag = 0;
-	travis->y_flag = 1;
+	travis->x_flag = travis->x_flag == 1 ? 0 : 1;
+	travis->y_flag = travis->y_flag == 1 ? 0 : 1;
 	if (ft_get_pos(travis, 0, 0, fd))
 		return (0);
-	travis->x_flag = 1;
+	ft_get_flag(travis, 0);
 	if (ft_get_pos(travis, 0, 0, fd))
 		return (0);
 	ft_fprintf("pizda blya\n", fd);

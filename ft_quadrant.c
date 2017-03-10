@@ -6,11 +6,31 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:05:11 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/09 21:39:10 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/10 16:35:46 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_filler.h"
+
+void	ft_get_flag(t_filler *travis, char flag)
+{
+	if (travis->quadrant == 4 || travis->quadrant == 2)
+	{
+		travis->x_flag = flag == 1 ? 0 : 1;
+		if (travis->quadrant == 2)
+			travis->y_flag = flag == 1 ? 1 : 0;
+		else
+			travis->y_flag = flag == 1 ? 0 : 1;
+	}
+	else
+	{
+		travis->y_flag = flag == 1 ? 0 : 0;
+		if (travis->quadrant == 1)
+			travis->x_flag = flag == 1 ? 0 : 0;
+		else
+			travis->x_flag = flag == 1 ? 1 : 0;
+	}
+}
 
 void	ft_x_point(t_filler *travis, char quadrant, short *x)
 {
