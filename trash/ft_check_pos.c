@@ -6,7 +6,7 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 16:27:51 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/10 16:43:56 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/11 16:57:56 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		ft_check_midle(t_filler *travis, int fd)
 {
+	ft_fprintf("ft_check_midle", fd);
 	char **map;
 	short m_y;
 	short m_x;

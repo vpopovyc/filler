@@ -6,7 +6,7 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:10:15 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/10 16:42:07 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/11 16:52:10 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,40 @@
 # include "libft/includes/libft.h"
 typedef struct	s_filler
 {
-	int		map_shapes[2]; /* [0] = y [1] = x */
-	int		tok_shapes[3];
-	char	token_c;
+	int		m_sp[4]; /* [0] = y [1] = x */
+	int		t_sp[3];
+	char	al_c;
+	char	en_c;
 	char	**map;
     char    **token;
 	short	x_flag;
 	short	y_flag;
-	char	quadrant;
+	char	al_q;
+	char	en_q;
+	int		fd_place;
+	int		fd_map;
+	short	l_alp[2];
+	short	l_enp[2];
+	short	x_max;
 }				t_filler;
-void		ft_get_s_filler(t_filler *travis, int fd);
-void		ft_get_p_number(t_filler *travis, int fd, char *line);
-void		ft_get_x_y(t_filler *travis, int fd);
-void		ft_get_map(t_filler *travis, int fd);
-void        ft_get_token(t_filler *travis, int fd);
-/* ft_get_pos.c */ 
-int     ft_try_to_fit(t_filler *travis, short x, short y, int fd);
-short   ft_flags(t_filler *travis, int fd);
-void    ft_flag_usage(t_filler *travis, short *x, short *y);
-short   ft_get_pos(t_filler *travis, short y_step, short step_x, int fd);
-/* ft_hews_token.c */ 
-void    ft_hews(t_filler *travis, int fd, short y, short x, short empty);
-void    ft_realloc_token(t_filler *travis, int fd, short i, short t_i);
-/* ft_get_updated_map.c */
-void	ft_get_updated_map_and_token(t_filler *travis, int fd);
-/* ft_quadrant.c */
-int     ft_check_midle(t_filler *travis, int fd);
-void    ft_get_flag(t_filler *travis, char flag);
-char	ft_quadrant(t_filler *travis, char **map, short y, short x);
-void    ft_step(short *y, short *x, char quadrant);
-void    ft_starting_point(t_filler *travis, short *y, short *x, char quadrant);
-void	ft_x_point(t_filler *travis, char quadrant, short *x);
+
+/* ft_init_all.c */
+void	ft_get_p_number(t_filler *travis, char *line);
+void	ft_get_x_y_of_map(t_filler *travis);
+void	ft_get_map(t_filler *travis, short mem_all, short i);
+void    ft_get_token(t_filler *travis, short i);
+void	ft_get_starting_quad(t_filler *travis, char al, char en, char **map);
+/*ft_hews_token.c */
+void	ft_hews(t_filler *travis, short y, short x, short empty);
+void	ft_realloc_token(t_filler *travis, short i, short t_i);
+/* ft_update_map.c */
+void	ft_update_all(t_filler *travis);
+void	ft_update_map(t_filler *travis, short y, short x, char **map);
+/* ft_write_token.c */
+char	ft_check_token(t_filler *filler, char **map, short y, short x);
+/* ft_move.c */
+int		ft_move_left(t_filler *travis, short y, short x);
+int		ft_move_right(t_filler *travis, short y, short x);
+int		ft_move_up(t_filler *travis, short y, short x);
+int		ft_move_down(t_filler *travis, short y, short x);
 #endif

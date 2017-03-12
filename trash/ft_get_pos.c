@@ -6,7 +6,7 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:07:01 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/10 16:42:16 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/11 18:14:40 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,52 +17,6 @@ void	ft_flag_usage(t_filler *travis, short *x, short *y)
 		*x -= travis->tok_shapes[1] - 1;
 	if (travis->y_flag == 0)
 		*y -= travis->tok_shapes[0] - 1;
-}
-int		ft_try_to_fit(t_filler *travis, short x, short y, int fd)
-{
-	ft_fprintf("ft_try_to_fit\n", fd);
-	short	t_x;
-	short	x2 = 0;
-	short	y2 = 0;
-	char	**map;
-	char	**tok;
-	short	check = 0;
-	short	ok = 0;
-
-	ft_fprintf("y: %i, x: %i before flags\n", fd, y, x);
-	ft_flag_usage(travis, &x, &y);
-	ft_fprintf("y: %i, x: %i after flags\n", fd, y, x);
-	t_x = x;
-	map = travis->map;
-	tok = travis->token;
-	while (map[y] && tok[y2] && y >= 0)
-	{
-		x2 = 0;
-		x = t_x;
-		ft_fprintf("map_y: %i\ntok_y: %i\nmap_x: %i\n", fd, y, y2, x);
-		while (map[y][x] && tok[y2][x2])
-		{
-			ft_fprintf("map_x: %i - map_char: %c\ntok_x: %i - tok_char: %c\n", fd, x, map[y][x], x2, tok[y2][x2]);
-			if (tok[y2][x2] == '*')
-			{
-				if (map[y][x] == travis->token_c || map[y][x] == travis->token_c + 32)
-					ok += 1;
-				else if (map[y][x] == '.')
-					++check;
-				else
-					return (0);
-			}
-			++x2;
-			++x;
-		}
-		++y2;
-		++y;
-	}
-	ft_fprintf("check: %i\n", fd, check);
-	if (ok == 1 && check == travis->tok_shapes[2] - 1)
-		return (1);
-	else
-		return (0);
 }
 
 short	ft_get_pos(t_filler *travis, short y_step, short x_step, int fd)
@@ -76,18 +30,17 @@ short	ft_get_pos(t_filler *travis, short y_step, short x_step, int fd)
 
 	map = travis->map;
 	ft_starting_point(travis, &y, &x, travis->quadrant);
-	ft_fprintf("y: %i, x: %i quadrant: %hhd\n", fd, y, x, travis->quadrant);
+	ft_fprintf("y: %i, x: %i quadrant: %hhd enemy_quadrant: %hhd\n", fd, y, x, travis->quadrant, travis->enemy_quadrant);
 	ft_step(&y_step, &x_step, travis->quadrant);
 	if (ft_check_midle(travis, fd))
 		return (1);
 	while (map[y] && y >= 0)
 	{
-		ft_x_point(travis, travis->quadrant, &x);
-		while (map[y][x])
+		:
 		{
 			ft_fprintf("y: %i, x: %i quadrant: %hhd\n", fd, y, x, travis->quadrant);
 			ft_fprintf("x_flag: %i y_flag: %i\n", fd, travis->x_flag, travis->y_flag);
-			if (map[y][x] == travis->token_c || map[y][x] == travis->token_c + 32) /* here */
+			if ((map[y][x] == travis->token_c || map[y][x] == travis->token_c + 32) && ft_check_opor(map, y, x) == 1)/* here */
 			{
 				if (ft_try_to_fit(travis, x, y, fd))
 				{
@@ -112,6 +65,8 @@ short	ft_get_pos(t_filler *travis, short y_step, short x_step, int fd)
 short	ft_flags(t_filler *travis, int fd)
 {
 	ft_fprintf("ft_flags\n", fd);
+	if (!ft_flag_midle(travis->map[travis->map_shapes[0] / 2], -1, 0))
+		travis->quadrant = travis->enemy_quadrant;
 	ft_get_flag(travis, 1);
 	if (ft_get_pos(travis, 0, 0, fd))
 		return (0);

@@ -6,11 +6,30 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/09 19:05:11 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/10 16:35:46 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/11 17:21:01 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_filler.h"
+
+char	ft_check_opor(char **map, short y, short x)
+{
+	if (map[y][x + 1] == '.' || map[y][x - 1] == '.')
+		return (1);
+	return (0);
+}
+
+char	ft_flag_midle(char *map, short x, short check)
+{
+	while (map[++x])
+	{
+		if (map[x] == '.')
+			++check;
+	}
+	if (check > 2)
+		return (1);
+	return (0);
+}	
 
 void	ft_get_flag(t_filler *travis, char flag)
 {
@@ -86,6 +105,36 @@ void	ft_step(short *y, short *x, char quadrant)
 		*y = -1;
 		*x = -1;
 	}
+}
+
+char	ft_enemy_quadrant(t_filler *travis, char **map, short y, short x)
+{
+	char	c;
+
+	c = travis->token_c == 'X' ? 'O' : 'X';
+	while (map[++y])
+	{
+		x = 0;
+		while (map[y][++x])
+		{
+			if (map[y][x] == c)
+			{
+				if (y < travis->map_shapes[0] / 2)
+				{
+					if (x < travis->map_shapes[1] / 2)
+						return (1);
+					return (2);
+				}
+				else
+				{
+					if (x < travis->map_shapes[1] / 2)
+						return (3);
+					return (4);
+				}
+			}
+		}
+	}
+	return (-1);
 }
 
 char	ft_quadrant(t_filler *travis, char **map, short y, short x)

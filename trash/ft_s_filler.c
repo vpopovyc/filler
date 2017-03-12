@@ -6,7 +6,7 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 20:32:47 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/09 21:19:17 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/11 16:30:40 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ void	ft_get_x_y(t_filler *travis, int fd)
     free(line);
 	ft_get_map(travis, fd);
 	travis->quadrant = ft_quadrant(travis, travis->map, -1, -1);
+	travis->enemy_quadrant = ft_enemy_quadrant(travis, travis->map, -1, -1);
 }
 
 void	ft_get_p_number(t_filler *travis, int fd, char *line)
 {
 	travis->token_c = ft_atoi(line + 10) == 1 ? 'O': 'X';
-	ft_fprintf("Player token: %c\n", fd, &travis->token_c);
+	ft_fprintf("Player token: %c\n", fd_map, &travis->token_c);
 	free(line);
 	ft_get_x_y(travis, fd);
 }

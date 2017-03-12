@@ -1,0 +1,7 @@
+ft_write_token y: 12 x: 13
+map: . token: *
+map: X token: *
+map: . token: *
+map: . token: *
+End of ft_write_token ok: 1
+
