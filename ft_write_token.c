@@ -19,24 +19,9 @@ static char		ft_check_write_token(char map, char ok, char al_c)
 	return (0);
 }
 
-
-void			ft_get_new_l_pos(t_filler *travis, char **map, short y, short x)
+char			ft_write_token(t_filler *travis, char **map, short y, short x)
 {
-	char	flag_x;
-	char	flag_y;
-
-	flag_x = travis->al_q == 1 ? 1 : 0;
-	flag_y = travis->al_q == 2 ? 1 : 0;
-	while (map[++y])
-	{
-		x = -1;
-		while (map[y][++x])
-
-	}
-}
-
-char			ft_check_token(t_filler *travis, char **map, short y, short x)
-{
+    ft_fprintf("New map would be like\n", travis->fd_place);
 	short tmp_x;
 	short t_x;
 	short t_y;
@@ -50,12 +35,23 @@ char			ft_check_token(t_filler *travis, char **map, short y, short x)
 	{
 		x = tmp_x - 1;
 		t_x = -1;
-		while (map[y][++x] && travis->token[t_y][++t_x])
-			map[y][x] = travis->token[t_y][t_x];
-		++y;
+        while (map[y][++x] && travis->token[t_y][++t_x])
+        {
+            if (map[y][x] == travis->al_c || map[y][x] == '.')
+                map[y][x] = travis->token[t_y][t_x];
+        }
+        ft_fprintf("%s\n", travis->fd_place, map[y]);
+        ++y;
 		++t_y;
 	}
-	ft_get_new_l_pos(travis, map, cp[0] - 1, cp[1] - 1);
+    if (travis->al_q == 4)
+        ft_update_travis_pos_q4(travis, cp[0], cp[1], map);
+    else if (travis->al_q == 3)
+        ft_update_travis_pos_q3(travis, cp[0], cp[1], map);
+    else if (travis->al_q == 2)
+        ft_update_travis_pos_q2(travis, cp[0], cp[1], map);
+    else if (travis->al_q == 1)
+        ft_update_travis_pos_q1(travis, cp[0], cp[1], map);
 	return (1);
 }
 
@@ -72,19 +68,19 @@ char			ft_check_token(t_filler *travis, char **map, short y, short x)
 	tmp_x = x;
 	t_y[0] = 0;
 	ok = 0;
-	while (map[y] && travis->token[t_y[0]])
+	while (map[y] && travis->token[t_y[0]] && y >= 0)
 	{
 		x = tmp_x;
 		t_x[0] = 0;
-		while (map[y][x] && travis->token[t_y[0]][t_x[0]])
+		while (map[y][x] && travis->token[t_y[0]][t_x[0]] && x >= 0)
 		{
-			ft_fprintf("map: %c token: %c\n", travis->fd_place, map[y][x], travis->token[t_y[0]][t_x[0]]);
+			ft_fprintf("map: %c token: %c ok: %hhi\n", travis->fd_place, map[y][x], travis->token[t_y[0]][t_x[0]], ok);
 			if (travis->token[t_y[0]][t_x[0]] == '*')
-			{
-				if (map[y][x] == travis->al_c)
-					ok = 1;
-				else if (!ft_check_write_token(map[y][x], ok, travis->al_c))
+            {
+				if (!ft_check_write_token(map[y][x], ok, travis->al_c))
 					return (0);
+                if (map[y][x] == travis->al_c)
+                    ok = 1;
 			}
 			++x;
 			++t_x[0];

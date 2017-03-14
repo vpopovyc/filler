@@ -12,6 +12,95 @@
 
 #include "ft_filler.h"
 
+void    ft_update_travis_pos_q1(t_filler *travis, short y, short x, char **map)
+{
+    short t_x;
+    
+    t_x = x;
+    while (map[y])
+    {
+        x = t_x;
+        while (map[y][x])
+        {
+            if (map[y][x] == '*' && map[y + 1][x] != '*' && map[y][x + 1] != '*')
+            {
+                travis->l_alp[0] = y;
+                travis->l_alp[1] = x;
+                return ;
+            }
+            ++x;
+        }
+        ++y;
+    }
+}
+
+void    ft_update_travis_pos_q2(t_filler *travis, short y, short x, char **map)
+{
+    short t_x;
+    
+    t_x = x;
+    while (map[y])
+    {
+        x = t_x;
+        while (map[y][x])
+        {
+            if (map[y][x] == '*' && map[y + 1][x] != '*')
+            {
+                travis->l_alp[0] = y;
+                travis->l_alp[1] = x;
+                return ;
+            }
+            ++x;
+        }
+        ++y;
+    }
+}
+
+void    ft_update_travis_pos_q3(t_filler *travis, short y, short x, char **map)
+{
+    short t_x;
+    
+    t_x = x;
+    while (map[y])
+    {
+        x = t_x;
+        while (map[y][x])
+        {
+            if (map[y][x] == '*' && map[y][x + 1] != '*')
+            {
+                travis->l_alp[0] = y;
+                travis->l_alp[1] = x;
+                return ;
+            }
+            ++x;
+        }
+        ++y;
+    }
+}
+
+void    ft_update_travis_pos_q4(t_filler *travis, short y, short x, char **map)
+{
+    short t_x;
+    
+    t_x = x;
+    while (map[y])
+    {
+        x = t_x;
+        while (map[y][x])
+        {
+            if (map[y][x] == '*')
+            {
+                travis->l_alp[0] = y;
+                travis->l_alp[1] = x;
+                return ;
+            }
+            ++x;
+        }
+        ++y;
+    }
+    
+}
+
 void	ft_update_map(t_filler *travis, short y, short x, char **map)
 {
 	char	*line;

@@ -19,7 +19,8 @@ int		main(void)
 
 	travis.fd_map = open("log", O_RDWR | O_TRUNC);
 	travis.fd_place = open("log_place", O_RDWR | O_TRUNC);
-	ft_fprintf("fd_place: %i\n", travis.fd_map, travis.fd_place);
+    ft_fprintf("New output:\n%s%s%s\n", travis.fd_map, DEL, DEL, DEL);
+	ft_fprintf("New output:\n%s%s%s\n", travis.fd_place, DEL, DEL, DEL);
 	while (get_next_line(0, &line))
 	{
 		if (ft_strnstr(line, "$$$", 3))

@@ -54,7 +54,7 @@ void	ft_hews(t_filler *travis, short y, short x, short empty)
 			{
 				if (travis->token[y][x + 1] == '\0')
 				{
-					if (y == 0 && empty + 1 == travis->t_sp[1])
+					if (travis->t_sp[2] == 0 && empty + 1 == travis->t_sp[1])
 						break ;
 					travis->token[y][x - empty] = '\0';
 				}

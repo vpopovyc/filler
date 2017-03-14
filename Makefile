@@ -6,13 +6,14 @@
 #    By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/02 15:12:00 by vpopovyc          #+#    #+#              #
-#    Updated: 2017/03/10 16:41:37 by vpopovyc         ###   ########.fr        #
+#    Updated: 2017/03/14 18:28:06 by vpopovyc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = players/travis.filler
 
-SRC = main.c ft_init_all.c ft_hews_token.c ft_update_map.c ft_move.c ft_write_token.c
+SRC = main.c ft_init_all.c ft_hews_token.c ft_update_map.c ft_move.c ft_write_token.c \
+	ft_algo.c ft_sm_algo.c
 
 INC = -I ft_filler.h
 
