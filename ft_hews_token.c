@@ -16,6 +16,7 @@ void	ft_realloc_token(t_filler *travis, short i, short t_i)
 {
 	char	*tmp;
 	char	**new_token;
+    short   x;
 
 	ft_fprintf("Token:\n", travis->fd_map);
 	tmp = *(travis->token);
@@ -28,14 +29,15 @@ void	ft_realloc_token(t_filler *travis, short i, short t_i)
 	while (++i != t_i)
 	{
 		*(new_token + i) = ft_strdup(*(travis->token + i));
+        x = ft_strlen(*(new_token + i));
+        travis->t_sp[1] = x > travis->t_sp[1] ? x : travis->t_sp[1];
 		ft_fprintf("%s\n", travis->fd_map, *(new_token + i));
 		free(*(travis->token + i));
 	}
 	free(travis->token);
 	travis->token = new_token;
 	travis->t_sp[0] = i;
-	travis->t_sp[1] = ft_strlen(*(travis->token + i - 1));
-    ft_fprintf("token = y: %i x: %i n: %i\n", travis->fd_map, travis->t_sp[0], travis->t_sp[1], travis->t_sp[2]);
+    ft_fprintf("token = y: %i x: %i\n", travis->fd_map, travis->t_sp[0], travis->t_sp[1]);
 }
 
 

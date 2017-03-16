@@ -12,8 +12,7 @@
 
 NAME = players/travis.filler
 
-SRC = main.c ft_init_all.c ft_hews_token.c ft_update_map.c ft_move.c ft_write_token.c \
-	ft_algo.c ft_sm_algo.c
+SRC = main.c ft_init_all.c ft_update_map.c ft_check_token.c ft_algo.c ft_hews_token.c
 
 INC = -I ft_filler.h
 

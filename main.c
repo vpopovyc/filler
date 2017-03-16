@@ -25,9 +25,9 @@ int		main(void)
 	{
 		if (ft_strnstr(line, "$$$", 3))
 			ft_get_p_number(&travis, line);
-		if (ft_strnstr(line, "Pl", 2))
+		else if (ft_strnstr(line, "Pl", 2))
 			ft_update_all(&travis);
-		if (!ft_algo(&travis))
-			return (ft_printf("-1 -1\n"));
+        ft_algo(&travis);
 	}
+    return (1);
 }
