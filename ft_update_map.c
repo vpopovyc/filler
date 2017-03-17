@@ -6,7 +6,7 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 19:27:33 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/11 19:27:45 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/17 15:58:31 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_update_map(t_filler *travis, short y, short x, char **map)
 
 	get_next_line(0, &line);
 	free(line);
-	while(map[++y])
+	while (map[++y])
 	{
 		get_next_line(0, &line);
 		x_u = 3;
@@ -28,7 +28,6 @@ void	ft_update_map(t_filler *travis, short y, short x, char **map)
 			if (map[y][x] != line[x_u])
 				map[y][x] = line[x_u];
 		}
-		ft_fprintf("%s\n", travis->fd_map, map[y]);
 		free(line);
 		x = -1;
 	}

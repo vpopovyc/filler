@@ -6,7 +6,7 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 17:42:56 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/09 17:58:20 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/17 15:57:54 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_realloc_token(t_filler *travis, short i, short t_i)
 {
 	char	*tmp;
 	char	**new_token;
-    short   x;
+	short	x;
 
 	ft_fprintf("Token:\n", travis->fd_map);
 	tmp = *(travis->token);
@@ -29,17 +29,14 @@ void	ft_realloc_token(t_filler *travis, short i, short t_i)
 	while (++i != t_i)
 	{
 		*(new_token + i) = ft_strdup(*(travis->token + i));
-        x = ft_strlen(*(new_token + i));
-        travis->t_sp[1] = x > travis->t_sp[1] ? x : travis->t_sp[1];
-		ft_fprintf("%s\n", travis->fd_map, *(new_token + i));
+		x = ft_strlen(*(new_token + i));
+		travis->t_sp[1] = x > travis->t_sp[1] ? x : travis->t_sp[1];
 		free(*(travis->token + i));
 	}
 	free(travis->token);
 	travis->token = new_token;
 	travis->t_sp[0] = i;
-    ft_fprintf("token = y: %i x: %i\n", travis->fd_map, travis->t_sp[0], travis->t_sp[1]);
 }
-
 
 void	ft_hews(t_filler *travis, short y, short x, short empty)
 {
@@ -50,8 +47,8 @@ void	ft_hews(t_filler *travis, short y, short x, short empty)
 		empty = 0;
 		while (travis->token[y][++x])
 		{
-			travis->token[y][x] == '*' ? empty = 0: 0;
-			travis->token[y][x] == '*' ? ++travis->t_sp[2]: 0;
+			travis->token[y][x] == '*' ? empty = 0 : 0;
+			travis->token[y][x] == '*' ? ++travis->t_sp[2] : 0;
 			if (travis->token[y][x] == '.')
 			{
 				if (travis->token[y][x + 1] == '\0')
