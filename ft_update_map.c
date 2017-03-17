@@ -12,7 +12,7 @@
 
 #include "ft_filler.h"
 
-void	ft_update_map(t_filler *travis, short y, short x, char **map)
+void	ft_update_map(/*t_filler *travis,*/ short y, short x, char **map)
 {
 	char	*line;
 	short	x_u;
@@ -35,7 +35,7 @@ void	ft_update_map(t_filler *travis, short y, short x, char **map)
 
 void	ft_update_all(t_filler *travis)
 {
-	ft_update_map(travis, -1, -1, travis->map);
+	ft_update_map(/*travis, */-1, -1, travis->map);
 	ft_ppdel(&travis->token);
 	ft_get_token(travis, -1);
 }
