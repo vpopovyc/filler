@@ -12,13 +12,24 @@
 
 #include "ft_filler.h"
 
-void	ft_update_map(/*t_filler *travis,*/ short y, short x, char **map)
+void	ft_give_birth_to_hedgehog(t_filler *travis)
+{
+	char	*name;
+	char	*tmp;
+	
+	tmp = ft_sstoab(travis->nfd, 10);
+	name = ft_strjoin("logs/", tmp);
+	travis->fd = open(name, O_TRUNC | O_CREAT | O_RDWR, 00777);
+}
+
+void	ft_update_map(t_filler *travis, short y, short x, char **map)
 {
 	char	*line;
 	short	x_u;
 
 	get_next_line(0, &line);
 	free(line);
+	ft_give_birth_to_hedgehog(travis);
 	while (map[++y])
 	{
 		get_next_line(0, &line);
@@ -28,14 +39,17 @@ void	ft_update_map(/*t_filler *travis,*/ short y, short x, char **map)
 			if (map[y][x] != line[x_u])
 				map[y][x] = line[x_u];
 		}
+		ft_fprintf("%s\n", travis->fd, map[y]);
 		free(line);
 		x = -1;
 	}
+	close(travis->fd);
 }
 
 void	ft_update_all(t_filler *travis)
 {
-	ft_update_map(/*travis, */-1, -1, travis->map);
+	++travis->nfd;
+	ft_update_map(travis, -1, -1, travis->map);
 	ft_ppdel(&travis->token);
 	ft_get_token(travis, -1);
 }

@@ -22,11 +22,12 @@ typedef struct	s_filler
 	char		en_c;
 	char		**map;
 	char		**token;
-	int			fd_place;
-	int			fd_map;
+	int			fd;
+	int			nfd;
 	short		ev[2];
 }				t_filler;
 
+void			ft_give_birth_to_hedgehog(t_filler *travis);
 void			ft_hews(t_filler *travis, short y, short x, short empty);
 void			ft_realloc_token(t_filler *travis, short i, short t_i);
 void			ft_get_p_number(t_filler *travis, char *line);
@@ -34,7 +35,7 @@ void			ft_get_x_y_of_map(t_filler *travis);
 void			ft_get_map(t_filler *travis, short mem_all, short i);
 void			ft_get_token(t_filler *travis, short i);
 void			ft_update_all(t_filler *travis);
-void			ft_update_map(/*t_filler *travis,*/
+void			ft_update_map(t_filler *travis,
 		short y, short x, char **map);
 char			ft_check_write_token(char map, char ok, char al_c);
 char			ft_check_space_around(t_filler *travis,

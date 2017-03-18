@@ -18,7 +18,6 @@ void	ft_realloc_token(t_filler *travis, short i, short t_i)
 	char	**new_token;
 	short	x;
 
-	ft_fprintf("Token:\n", travis->fd_map);
 	tmp = *(travis->token);
 	while (*tmp != '\0' && ++i < travis->t_sp[0])
 		tmp = *(travis->token + i);

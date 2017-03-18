@@ -17,8 +17,7 @@ int		main(void)
 	t_filler	travis;
 	char		*line;
 
-	travis.fd_map = open("log", O_RDWR | O_TRUNC);
-	travis.fd_place = open("log_place", O_RDWR | O_TRUNC);
+	travis.nfd = 0;
 	while (get_next_line(0, &line))
 	{
 		if (ft_strnstr(line, "$$$", 3))
@@ -27,5 +26,11 @@ int		main(void)
 			ft_update_all(&travis);
 		ft_algo(&travis);
 	}
+	free(line);
+	ft_ppdel(&travis.map);
+	ft_ppdel(&travis.token);
+	ft_give_birth_to_hedgehog(&travis);
+	ft_fprintf("end of game\n", travis.fd);
+	close(travis.fd);
 	return (1);
 }

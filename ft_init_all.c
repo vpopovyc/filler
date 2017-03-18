@@ -31,6 +31,7 @@ void	ft_get_token(t_filler *travis, short i)
 	ft_hews(travis, -1, -1, 0);
 }
 
+
 void	ft_get_map(t_filler *travis, short mem_all, short i)
 {
 	char	*line;
@@ -40,12 +41,15 @@ void	ft_get_map(t_filler *travis, short mem_all, short i)
 	*(travis->map + mem_all) = NULL;
 	get_next_line(0, &line);
 	free(line);
+	ft_give_birth_to_hedgehog(travis);
 	while (++i != mem_all)
 	{
 		get_next_line(0, &line);
 		*(travis->map + i) = ft_strsub(line, 4, travis->m_sp[1]);
+		ft_fprintf("%s\n", travis->fd, *(travis->map + i));
 		free(line);
 	}
+	close(travis->fd);
 	ft_get_token(travis, -1);
 }
 
