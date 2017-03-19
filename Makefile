@@ -6,7 +6,7 @@
 #    By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/02 15:12:00 by vpopovyc          #+#    #+#              #
-#    Updated: 2017/03/14 18:28:06 by vpopovyc         ###   ########.fr        #
+#    Updated: 2017/03/19 19:10:08 by vpopovyc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ LIBOBJ = make -C libft/
 
 CFLAGS = -c -Wall -Werror -Wextra
 
+MLXCFLAGS = -I /usr/X11/include -L /usr/X11/lib -lmlx -framework OpenGL -framework AppKit
+
 LIBINC = -L./libft -lft
 
 all: $(NAME)
@@ -29,10 +31,10 @@ all: $(NAME)
 obj: $(OBJ)
 
 $(NAME) : liball obj
-	gcc -o $(NAME) $(LIBINC) $(OBJ)
+	clang -o $(NAME) $(LIBINC) $(MLXCFLAGS) $(OBJ)
 
 %.o: %.c
-	gcc $(CFLAGS) -o $@ $<
+	clang $(CFLAGS) -o $@ $<
 
 clean:
 	rm -rf $(OBJ)

@@ -6,7 +6,7 @@
 /*   By: vpopovyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/02 15:09:07 by vpopovyc          #+#    #+#             */
-/*   Updated: 2017/03/17 15:59:52 by vpopovyc         ###   ########.fr       */
+/*   Updated: 2017/03/19 19:29:55 by vpopovyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		main(void)
 	char		*line;
 
 	travis.nfd = 0;
+	system("rm -rf logs/*");
 	while (get_next_line(0, &line))
 	{
 		if (ft_strnstr(line, "$$$", 3))
@@ -32,5 +33,6 @@ int		main(void)
 	ft_give_birth_to_hedgehog(&travis);
 	ft_fprintf("end of game\n", travis.fd);
 	close(travis.fd);
+	ft_fdf("logs/0", travis.al_c);
 	return (1);
 }

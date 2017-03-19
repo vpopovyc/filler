@@ -20,6 +20,8 @@ void	ft_give_birth_to_hedgehog(t_filler *travis)
 	tmp = ft_sstoab(travis->nfd, 10);
 	name = ft_strjoin("logs/", tmp);
 	travis->fd = open(name, O_TRUNC | O_CREAT | O_RDWR, 00777);
+    free(name);
+    free(tmp);
 }
 
 void	ft_update_map(t_filler *travis, short y, short x, char **map)
